@@ -1,0 +1,71 @@
+<div class="row">
+  <!-- Front sleeves -->
+  <div class="col-lg-4">
+    <div class="card h-100">
+      <div class="card-header">
+        Front sleeves
+      </div>
+      <div class="card-body">
+        <app-image-input (imageLoaded)="imageLoaded($event, 'frontSleeves')"
+          (imageCleared)="imageCleared('frontSleeves')" (imageError)="imageError($event, 'frontSleeves')">
+        </app-image-input>
+        <br />
+        <div class="preview preview-sleeves">
+          <img *ngIf="images.frontSleeves" [src]="images.frontSleeves.dataUrl">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Chest -->
+  <div class="col-lg-4">
+    <div class="card h-100">
+      <div class="card-header">
+        Chest
+      </div>
+      <div class="card-body">
+        <app-image-input (imageLoaded)="imageLoaded($event, 'chest')" (imageCleared)="imageCleared('chest')"
+          (imageError)="imageError($event, 'chest')"></app-image-input>
+        <br />
+        <div class="preview preview-chest">
+          <img *ngIf="images.chest" [src]="images.chest.dataUrl">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Back sleeves -->
+  <div class="col-lg-4">
+    <div class="card h-100">
+      <div class="card-header">
+        Back sleeves
+      </div>
+      <div class="card-body">
+        <app-image-input (imageLoaded)="imageLoaded($event, 'backSleeves')" (imageCleared)="imageCleared('backSleeves')"
+          (imageError)="imageError($event, 'backSleeves')"></app-image-input>
+        <br />
+        <div class="preview preview-sleeves">
+          <img *ngIf="images.backSleeves" [src]="images.backSleeves.dataUrl">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row top-10">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        Actions
+      </div>
+      <div class="card-body">
+        <button type="button" class="btn btn-primary" (click)="generate()">Generate</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row top-10">
+  <div class="col-lg-12">
+    <app-file-template-container [templates]="fileTemplates"></app-file-template-container>
+  </div>
+</div>
