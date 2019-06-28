@@ -7,7 +7,6 @@ A tool that specializes in creating multiplayer compatible custom animated cloth
 ## Usage
 
 * Below the generators, download any of the templates.
-  * For example, if you're trying to make a custom back item, download 
   * Using [Paint.NET](https://www.getpaint.net/)? Try out the `PDN` templates!
 * Sprite your custom item using whatever image editor you prefer.
   * **Make sure to save your sprite sheet as a `PNG` file!**
