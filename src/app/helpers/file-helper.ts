@@ -1,4 +1,5 @@
 import { ReplaySubject, Subject, Observable } from 'rxjs';
+import { saveAs } from 'file-saver';
 
 export class FileHelper {
   static readFileAsDataURL(file: File): Observable<string> {
@@ -12,5 +13,10 @@ export class FileHelper {
     reader.readAsDataURL(file);
 
     return subj;
+  }
+
+  static saveText(text: string, fileName: string): void {
+    const blob = new Blob([text], {type: 'application/json;charset=utf-8'});
+    saveAs(blob, fileName);
   }
 }

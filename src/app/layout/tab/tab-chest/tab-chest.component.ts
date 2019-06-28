@@ -9,6 +9,8 @@ import { DirectivesHelper } from '@root/helpers/directives-helper';
 import { templates } from '@root/helpers/templates';
 import { chestFileTemplates } from './chest-file-templates';
 import { chestDescriptor } from './chest-descriptor';
+import { saveAs } from 'file-saver';
+import { FileHelper } from '@root/helpers/file-helper';
 
 @Component({
   selector: 'app-tab-chest',
@@ -89,9 +91,10 @@ export class TabChestComponent implements OnInit {
       const diff = ImageHelper.difference(backSleeveTemplate, back);
       res += DirectivesHelper.toReplace(diff, true);
     }
-  
+
     const full = templates.chest.join('');
     descriptor.parameters.directives = `${full}${res}`;
-    console.log(descriptor);
+
+    FileHelper.saveText(JSON.stringify(descriptor, undefined, 2), 'outfit-chest.json');
   }
 }
