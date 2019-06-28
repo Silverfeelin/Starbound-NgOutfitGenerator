@@ -1,6 +1,6 @@
 import { IFileTemplate } from '@root/layout/template/file-template-interface';
 
-export const pantsTemplates: Array<IFileTemplate> = [
+export const pantsFileTemplates: Array<IFileTemplate> = [
   {
     asset: 'assets/templates/pants/pantsm.png',
     pdn: 'assets/templates/pants/pantsm.pdn',

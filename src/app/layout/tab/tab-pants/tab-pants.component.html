@@ -1,7 +1,38 @@
-<div class="row top-10">
-  <div class="col-lg-12">
-    <app-file-template-container [templates]="templates"></app-file-template-container>
+<div class="row">
+  <!-- Legs -->
+  <div class="col-lg-4 offset-lg-4">
+    <div class="card h-100">
+      <div class="card-header">
+        Pants
+      </div>
+      <div class="card-body">
+        <app-image-input (imageLoaded)="imageLoaded($event)" (imageCleared)="imageCleared()"
+          (imageError)="imageError($event)"></app-image-input>
+        <br />
+        <div class="preview preview-pants">
+          <img *ngIf="imageModel" [src]="imageModel.dataUrl">
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<button type="button" (click)="click()">Error</button>
+<div class="row top-10">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+        Actions
+      </div>
+      <div class="card-body actions">
+        <button type="button" class="btn btn-primary" (click)="generateNormal()">Generate (normal)</button>
+        <button type="button" class="btn btn-primary" (click)="generateHiding()">Generate (hide body)</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row top-10">
+  <div class="col-lg-12">
+    <app-file-template-container [templates]="fileTemplates"></app-file-template-container>
+  </div>
+</div>

@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Image } from 'upng-js';
+import { Component } from '@angular/core';
 import { NotifierService } from 'angular-notifier';
 import { ImageHelper } from '@root/helpers/image-helper';
-import { IFileTemplate } from '@root/layout/template/file-template-interface';
 import { ImageModel } from '@root/input/image-input/image-model-interface';
 import { TemplateHelper } from '@root/helpers/template-helper';
 import { DirectivesHelper } from '@root/helpers/directives-helper';
 import { templates } from '@root/helpers/templates';
 import { chestFileTemplates } from './chest-file-templates';
 import { chestDescriptor } from './chest-descriptor';
-import { saveAs } from 'file-saver';
 import { FileHelper } from '@root/helpers/file-helper';
 
 @Component({
@@ -17,15 +14,12 @@ import { FileHelper } from '@root/helpers/file-helper';
   templateUrl: './tab-chest.component.html',
   styleUrls: ['./tab-chest.component.less']
 })
-export class TabChestComponent implements OnInit {
-
+export class TabChestComponent {
   images: { chest?: ImageModel, frontSleeves?: ImageModel, backSleeves?: ImageModel } = {};
 
-  fileTemplates = chestFileTemplates;
+  readonly fileTemplates = chestFileTemplates;
 
   constructor(private readonly notifierService: NotifierService) {}
-
-  ngOnInit() {}
 
   imageLoaded(imageModel: ImageModel, slot: string) {
     this.images[slot] = imageModel;
