@@ -1,7 +1,5 @@
 # Starbound - Outfit Generator
 
-Web-based Outfit Generator powered by Angular and UPNG.js.
-
 A tool that specializes in creating multiplayer compatible custom animated clothing. Powered by [Angular](https://angular.io/), [UPNG.js](https://github.com/photopea/UPNG.js) and [Nettle Boy](https://ilovebacons.com/members/nettle-boy.38/)'s directive magic.
 
 **Go to application:** https://silverfeelin.github.io/Starbound-NgOutfitGenerator/
