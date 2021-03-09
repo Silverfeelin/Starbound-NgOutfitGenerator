@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ImageHelper } from '@root/helpers/image-helper';
 import { Image } from 'upng-js';
 import { ImageModel } from './image-model-interface';
@@ -14,7 +14,13 @@ export class ImageInputComponent {
   @Output() readonly imageError = new EventEmitter<any>();
   @Output() readonly imageCleared = new EventEmitter<void>();
 
+  @ViewChild('input', { static: true }) input: ElementRef;
+
   constructor() { }
+
+  clearOld(): void {
+    this.input.nativeElement.value = '';
+  }
 
   fileChange(event: any) {
     const files: FileList = event.target.files;

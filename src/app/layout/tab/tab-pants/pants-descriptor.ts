@@ -13,7 +13,7 @@ export const hidingPantsDescriptor = {
   name: 'froggmerchantlegs',
   count: 1,
   parameters: {
-    shortdescription: 'Custom Sleeves',
+    shortdescription: 'Custom Pants',
     description: 'Made using the Outfit Generator.',
     inventoryIcon: 'pantsm.png:idle.1',
     hideBody: true

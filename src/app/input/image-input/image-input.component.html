@@ -1,1 +1,1 @@
-<input type="file" class="form-control-file" (change)="fileChange($event)">
+<input #input type="file" class="form-control-file" (click)="clearOld()" (change)="fileChange($event)">
