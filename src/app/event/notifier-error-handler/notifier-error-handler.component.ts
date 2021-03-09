@@ -1,6 +1,7 @@
-import { ErrorHandler } from '@angular/core';
+import { ErrorHandler, Injectable } from '@angular/core';
 import { NotifierService } from 'angular-notifier';
 
+@Injectable()
 export class NotifierErrorHandler extends ErrorHandler {
 
   constructor(private readonly notifierService: NotifierService) {
