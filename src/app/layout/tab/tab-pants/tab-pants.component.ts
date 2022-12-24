@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { pantsFileTemplates } from './pants-file-templates';
-import { NotifierService } from 'angular-notifier';
 import { ImageModel } from '@root/input/image-input/image-model-interface';
 import { pantsDescriptor, hidingPantsDescriptor } from './pants-descriptor';
 import { ImageHelper } from '@root/helpers/image-helper';
@@ -23,7 +22,6 @@ export class TabPantsComponent {
   readonly fileTemplates = pantsFileTemplates;
 
   constructor(
-    private readonly _notifierService: NotifierService,
     private readonly _imageService: ImageService
   ) {}
 
@@ -51,7 +49,7 @@ export class TabPantsComponent {
 
   imageError(error: any) {
     this.imageCleared();
-    this._notifierService.notify('error', error);
+    console.error(error);
   }
 
   generateNormalFile(copy?: boolean): void {

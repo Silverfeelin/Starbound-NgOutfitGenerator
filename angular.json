@@ -28,7 +28,6 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/angular-notifier/styles.css",
               "src/styles.less"
             ],
             "scripts": [],

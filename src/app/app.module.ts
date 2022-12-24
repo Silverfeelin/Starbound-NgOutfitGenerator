@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, ErrorHandler } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NotifierModule } from 'angular-notifier';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,12 +27,6 @@ import { FileTemplateContainerComponent } from './layout/template/file-template-
   ],
   imports: [
     NgbModule,
-    NotifierModule.withConfig({
-      position: {
-        horizontal: { position: 'right' },
-        vertical: { position: 'top' }
-      }
-    }),
     BrowserModule,
     AppRoutingModule
   ],

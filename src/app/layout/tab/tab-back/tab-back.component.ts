@@ -7,7 +7,6 @@ import { ImageHelper } from '@root/helpers/image-helper';
 import { TemplateHelper } from '@root/helpers/template-helper';
 import { DirectivesHelper } from '@root/helpers/directives-helper';
 import { FileHelper } from '@root/helpers/file-helper';
-import { NotifierService } from 'angular-notifier';
 import { templates } from '@root/helpers/templates';
 import { ImageService } from '@root/services/image.service';
 import { ClipboardHelper } from '@root/helpers/clipboard-helper';
@@ -24,7 +23,6 @@ export class TabBackComponent {
   readonly fileTemplates = backFileTemplates;
 
   constructor(
-    private readonly _notifierService: NotifierService,
     private readonly _imageService: ImageService
   ) {}
 
@@ -41,7 +39,7 @@ export class TabBackComponent {
       error: e => this.imageError(e)
     });
   }
-  
+
   imageLoaded(imageModel: ImageModel) {
     this.imageModel = imageModel;
   }
@@ -52,7 +50,7 @@ export class TabBackComponent {
 
   imageError(error: any) {
     this.imageCleared();
-    this._notifierService.notify('error', error);
+    console.error(error);
   }
 
   generateFile(copy?: boolean): void {
@@ -60,11 +58,11 @@ export class TabBackComponent {
     const json = JSON.stringify(descriptor, undefined, 2);
     copy ? ClipboardHelper.copy(json) : FileHelper.saveText(json, 'outfit-back.json');
   }
-  
+
   generateCommand(copy?: boolean): void {
-    const descriptor = this.generate();    
+    const descriptor = this.generate();
     const command = CommandHelper.generateCommand(descriptor);
-    copy ? ClipboardHelper.copy(command) : FileHelper.saveText(command, 'outfit-back.txt');    
+    copy ? ClipboardHelper.copy(command) : FileHelper.saveText(command, 'outfit-back.txt');
   }
 
   generate(): any {

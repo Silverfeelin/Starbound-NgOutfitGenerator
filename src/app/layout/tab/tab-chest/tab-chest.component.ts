@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NotifierService } from 'angular-notifier';
 import { ImageHelper } from '@root/helpers/image-helper';
 import { ImageModel } from '@root/input/image-input/image-model-interface';
 import { TemplateHelper } from '@root/helpers/template-helper';
@@ -23,7 +22,6 @@ export class TabChestComponent {
   readonly fileTemplates = chestFileTemplates;
 
   constructor(
-    private readonly _notifierService: NotifierService,
     private readonly _imageService: ImageService
   ) {}
 
@@ -51,7 +49,7 @@ export class TabChestComponent {
 
   imageError(error: any, slot: string) {
     this.imageCleared(slot);
-    this._notifierService.notify('error', error);
+    console.error(error);
   }
 
   generateFile(copy?: boolean): void {
