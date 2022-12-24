@@ -2,13 +2,10 @@
   <!-- Legs -->
   <div class="col-lg-4 offset-lg-4">
     <div class="card h-100">
-      <div class="card-header">
-        Pants
-      </div>
       <div class="card-body" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+        <h5 class="card-title">Pants</h5>
         <app-image-input (imageLoaded)="imageLoaded($event)" (imageCleared)="imageCleared()"
           (imageError)="imageError($event)"></app-image-input>
-        <br />
         <div class="preview preview-pants">
           <img *ngIf="imageModel" [src]="imageModel.dataUrl">
         </div>
@@ -20,10 +17,8 @@
 <div class="row top-10">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header">
-        Actions
-      </div>
       <div class="card-body actions">
+        <h5 class="card-title">Actions</h5>
         <div>
           <span style="display: inline-block;width: 100px;">Normal:</span>
           <div class="btn-group">

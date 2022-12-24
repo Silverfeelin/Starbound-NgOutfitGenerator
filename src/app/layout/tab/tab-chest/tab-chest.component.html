@@ -2,14 +2,11 @@
   <!-- Front sleeves -->
   <div class="col-lg-4">
     <div class="card h-100">
-      <div class="card-header">
-        Front sleeves
-      </div>
       <div class="card-body" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'frontSleeves')">
+        <h5 class="card-title">Front sleeves</h5>
         <app-image-input (imageLoaded)="imageLoaded($event, 'frontSleeves')"
           (imageCleared)="imageCleared('frontSleeves')" (imageError)="imageError($event, 'frontSleeves')">
         </app-image-input>
-        <br />
         <div class="preview preview-sleeves">
           <img *ngIf="images.frontSleeves" [src]="images.frontSleeves.dataUrl">
         </div>
@@ -19,14 +16,11 @@
   <!-- Chest -->
   <div class="col-lg-4">
     <div class="card h-100">
-      <div class="card-header">
-        Chest
-      </div>
       <div class="card-body" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'chest')">
+        <h5 class="card-title">Chest</h5>
         <app-image-input (imageLoaded)="imageLoaded($event, 'chest')" (imageCleared)="imageCleared('chest')"
           (imageError)="imageError($event, 'chest')">
         </app-image-input>
-        <br />
         <div class="preview preview-chest">
           <img *ngIf="images.chest" [src]="images.chest.dataUrl">
         </div>
@@ -36,14 +30,11 @@
   <!-- Back sleeves -->
   <div class="col-lg-4">
     <div class="card h-100">
-      <div class="card-header">
-        Back sleeves
-      </div>
       <div class="card-body" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'backSleeves')">
+        <h5 class="card-title">Back sleeves</h5>
         <app-image-input (imageLoaded)="imageLoaded($event, 'backSleeves')" (imageCleared)="imageCleared('backSleeves')"
           (imageError)="imageError($event, 'backSleeves')">
         </app-image-input>
-        <br />
         <div class="preview preview-sleeves">
           <img *ngIf="images.backSleeves" [src]="images.backSleeves.dataUrl">
         </div>
@@ -55,10 +46,8 @@
 <div class="row top-10">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header">
-        Actions
-      </div>
       <div class="card-body">
+        <h5 class="card-title">Actions</h5>
         <div class="btn-group">
           <button type="button" class="btn btn-primary" (click)="generateFile()">Generate file</button>
           <button type="button" class="btn btn-secondary" (click)="generateFile(true)">Copy</button>
