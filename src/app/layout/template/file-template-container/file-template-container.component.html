@@ -1,8 +1,6 @@
 <div class="card">
-  <div class="card-header">
-    {{ title || 'Templates' }}
-  </div>
   <div class="card-body">
+    <h5 class="card-title">{{ title || 'Templates' }}</h5>
     <div class="row">
       <div class="col-lg-4" *ngFor="let template of templates">
         <div class="card">
@@ -11,7 +9,7 @@
             <h5 class="card-title">{{template.title}}</h5>
             <p class="card-text">{{template.description}}</p>
             <div class="buttons btn-group inline bottom-5">
-              <a [href]="template.asset" [download]="fileName(template.asset)" class="btn btn-secondary">Download PNG</a>
+              <a [href]="template.asset" [download]="fileName(template.asset)" class="btn btn-primary">Download PNG</a>
               <a *ngIf="template.pdn" [href]="template.pdn" [download]="fileName(template.pdn)" class="btn btn-secondary">Download PDN</a>
             </div>
           </div>

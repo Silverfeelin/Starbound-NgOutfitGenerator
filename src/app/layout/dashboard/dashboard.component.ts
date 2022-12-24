@@ -6,12 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.less']
 })
 export class DashboardComponent implements OnInit {
+  activeId = 1;
 
   constructor() { }
 
   ngOnInit() { }
-
-  beforeChange(event: any) {
-    console.log(event);
-  }
 }

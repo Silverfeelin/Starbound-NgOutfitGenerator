@@ -1,36 +1,37 @@
 <div class="container-fluid">
-  <ngb-tabset (tabChange)="beforeChange($event)" [justify]="'fill'" [activeId]="'tabChest'">
-    <ngb-tab id="tabHat">
-      <ng-template ngbTabTitle>Hat</ng-template>
-      <ng-template ngbTabContent>
+  <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="activeId" [destroyOnHide]="false">
+    <li [ngbNavItem]="1" id="tabHat">
+      <a ngbNavLink>Hat</a>
+      <ng-template ngbNavContent>
         <div class="tab-content">
           <app-tab-hat></app-tab-hat>
         </div>
       </ng-template>
-    </ngb-tab>
-    <ngb-tab id="tabChest">
-      <ng-template ngbTabTitle>Chest</ng-template>
-      <ng-template ngbTabContent>
+    </li>
+    <li [ngbNavItem]="2" id="tabChest">
+      <a ngbNavLink>Chest</a>
+      <ng-template ngbNavContent>
         <div class="tab-content">
           <app-tab-chest></app-tab-chest>
         </div>
       </ng-template>
-    </ngb-tab>
-    <ngb-tab id="tabPants">
-      <ng-template ngbTabTitle>Pants</ng-template>
-      <ng-template ngbTabContent>
+    </li>
+    <li [ngbNavItem]="3" id="tabPants">
+      <a ngbNavLink>Pants</a>
+      <ng-template ngbNavContent>
         <div class="tab-content">
           <app-tab-pants></app-tab-pants>
         </div>
       </ng-template>
-    </ngb-tab>
-    <ngb-tab id="tabBack">
-      <ng-template ngbTabTitle>Back</ng-template>
-      <ng-template ngbTabContent>
+    </li>
+    <li [ngbNavItem]="4" id="tabBack">
+      <a ngbNavLink>Back</a>
+      <ng-template ngbNavContent>
         <div class="tab-content">
           <app-tab-back></app-tab-back>
         </div>
       </ng-template>
-    </ngb-tab>
-  </ngb-tabset>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
 </div>

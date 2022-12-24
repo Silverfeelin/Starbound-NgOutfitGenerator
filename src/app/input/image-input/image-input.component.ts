@@ -3,6 +3,7 @@ import { ImageHelper } from '@root/helpers/image-helper';
 import { Image } from 'upng-js';
 import { ImageModel } from './image-model-interface';
 import { FileHelper } from '@root/helpers/file-helper';
+import { ImageService } from '@root/services/image.service';
 
 @Component({
   selector: 'app-image-input',
@@ -16,7 +17,9 @@ export class ImageInputComponent {
 
   @ViewChild('input', { static: true }) input: ElementRef;
 
-  constructor() { }
+  constructor(
+    private readonly _imageService: ImageService
+  ) { }
 
   clearOld(): void {
     this.input.nativeElement.value = '';
@@ -27,19 +30,11 @@ export class ImageInputComponent {
     if (!files || files.length === 0) {
       this.imageCleared.emit();
     } else {
-      FileHelper.readFileAsDataURL(files[0]).subscribe({
-        next: base64 => {
-          try {
-            const image = ImageHelper.fromBase64(base64);
-            this.imageLoaded.emit({image, dataUrl: base64});
-          } catch (e) {
-            event.target.value = '';
-            this.imageError.emit(e);
-          }
-        },
+      this._imageService.fileToImage(files[0]).subscribe({
+        next: img => this.imageLoaded.emit(img),
         error: e => {
-            event.target.value = '';
-            this.imageError.emit(e);
+          event.target.value = '';
+          this.imageError.emit(e);
         }
       });
     }

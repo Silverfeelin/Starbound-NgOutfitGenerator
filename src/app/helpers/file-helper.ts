@@ -1,4 +1,4 @@
-import { ReplaySubject, Subject, Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { saveAs } from 'file-saver';
 
 export class FileHelper {
