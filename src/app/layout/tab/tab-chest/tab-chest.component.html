@@ -5,7 +5,7 @@
       <div class="card-header">
         Front sleeves
       </div>
-      <div class="card-body">
+      <div class="card-body" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'frontSleeves')">
         <app-image-input (imageLoaded)="imageLoaded($event, 'frontSleeves')"
           (imageCleared)="imageCleared('frontSleeves')" (imageError)="imageError($event, 'frontSleeves')">
         </app-image-input>
@@ -22,9 +22,10 @@
       <div class="card-header">
         Chest
       </div>
-      <div class="card-body">
+      <div class="card-body" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'chest')">
         <app-image-input (imageLoaded)="imageLoaded($event, 'chest')" (imageCleared)="imageCleared('chest')"
-          (imageError)="imageError($event, 'chest')"></app-image-input>
+          (imageError)="imageError($event, 'chest')">
+        </app-image-input>
         <br />
         <div class="preview preview-chest">
           <img *ngIf="images.chest" [src]="images.chest.dataUrl">
@@ -38,9 +39,10 @@
       <div class="card-header">
         Back sleeves
       </div>
-      <div class="card-body">
+      <div class="card-body" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'backSleeves')">
         <app-image-input (imageLoaded)="imageLoaded($event, 'backSleeves')" (imageCleared)="imageCleared('backSleeves')"
-          (imageError)="imageError($event, 'backSleeves')"></app-image-input>
+          (imageError)="imageError($event, 'backSleeves')">
+        </app-image-input>
         <br />
         <div class="preview preview-sleeves">
           <img *ngIf="images.backSleeves" [src]="images.backSleeves.dataUrl">
@@ -57,7 +59,14 @@
         Actions
       </div>
       <div class="card-body">
-        <button type="button" class="btn btn-primary" (click)="generate()">Generate</button>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary" (click)="generateFile()">Generate file</button>
+          <button type="button" class="btn btn-secondary" (click)="generateFile(true)">Copy</button>
+        </div>
+        <div class="btn-group" style="margin-left: 5px;">
+          <button type="button" class="btn btn-primary" (click)="generateCommand()">Generate command</button>
+          <button type="button" class="btn btn-secondary" (click)="generateCommand(true)">Copy</button>
+        </div>
       </div>
     </div>
   </div>

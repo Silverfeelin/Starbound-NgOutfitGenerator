@@ -8,6 +8,9 @@ import { templates } from '@root/helpers/templates';
 import { chestFileTemplates } from './chest-file-templates';
 import { chestDescriptor } from './chest-descriptor';
 import { FileHelper } from '@root/helpers/file-helper';
+import { ImageService } from '@root/services/image.service';
+import { ClipboardHelper } from '@root/helpers/clipboard-helper';
+import { CommandHelper } from '@root/helpers/command-helper';
 
 @Component({
   selector: 'app-tab-chest',
@@ -19,7 +22,24 @@ export class TabChestComponent {
 
   readonly fileTemplates = chestFileTemplates;
 
-  constructor(private readonly notifierService: NotifierService) {}
+  constructor(
+    private readonly _notifierService: NotifierService,
+    private readonly _imageService: ImageService
+  ) {}
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent, slot: string) {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    console.log(files);
+    this._imageService.fileToImage(files[0]).subscribe({
+      next: img => this.imageLoaded(img, slot),
+      error: e => this.imageError(e, slot)
+    });
+  }
 
   imageLoaded(imageModel: ImageModel, slot: string) {
     this.images[slot] = imageModel;
@@ -31,7 +51,19 @@ export class TabChestComponent {
 
   imageError(error: any, slot: string) {
     this.imageCleared(slot);
-    this.notifierService.notify('error', error);
+    this._notifierService.notify('error', error);
+  }
+
+  generateFile(copy?: boolean): void {
+    const descriptor = this.generate();
+    const json = JSON.stringify(descriptor, undefined, 2);
+    copy ? ClipboardHelper.copy(json) : FileHelper.saveText(json, 'outfit-chest.json');
+  }
+
+  generateCommand(copy?: boolean): void {
+    const descriptor = this.generate();
+    const command = CommandHelper.generateCommand(descriptor);
+    copy ? ClipboardHelper.copy(command) : FileHelper.saveText(command, 'outfit-chest.txt');
   }
 
   generate() {
@@ -89,6 +121,6 @@ export class TabChestComponent {
     const full = templates.chest.join('');
     descriptor.parameters.directives = `${full}${res}`;
 
-    FileHelper.saveText(JSON.stringify(descriptor, undefined, 2), 'outfit-chest.json');
+    return descriptor;
   }
 }

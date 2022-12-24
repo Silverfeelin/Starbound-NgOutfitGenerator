@@ -9,6 +9,9 @@ import { DirectivesHelper } from '@root/helpers/directives-helper';
 import { FileHelper } from '@root/helpers/file-helper';
 import { NotifierService } from 'angular-notifier';
 import { templates } from '@root/helpers/templates';
+import { ImageService } from '@root/services/image.service';
+import { ClipboardHelper } from '@root/helpers/clipboard-helper';
+import { CommandHelper } from '@root/helpers/command-helper';
 
 @Component({
   selector: 'app-tab-back',
@@ -20,8 +23,25 @@ export class TabBackComponent {
 
   readonly fileTemplates = backFileTemplates;
 
-  constructor(private readonly notifierService: NotifierService) {}
+  constructor(
+    private readonly _notifierService: NotifierService,
+    private readonly _imageService: ImageService
+  ) {}
 
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    console.log(files);
+    this._imageService.fileToImage(files[0]).subscribe({
+      next: img => this.imageLoaded(img),
+      error: e => this.imageError(e)
+    });
+  }
+  
   imageLoaded(imageModel: ImageModel) {
     this.imageModel = imageModel;
   }
@@ -32,10 +52,22 @@ export class TabBackComponent {
 
   imageError(error: any) {
     this.imageCleared();
-    this.notifierService.notify('error', error);
+    this._notifierService.notify('error', error);
   }
 
-  generate() {
+  generateFile(copy?: boolean): void {
+    const descriptor = this.generate();
+    const json = JSON.stringify(descriptor, undefined, 2);
+    copy ? ClipboardHelper.copy(json) : FileHelper.saveText(json, 'outfit-back.json');
+  }
+  
+  generateCommand(copy?: boolean): void {
+    const descriptor = this.generate();    
+    const command = CommandHelper.generateCommand(descriptor);
+    copy ? ClipboardHelper.copy(command) : FileHelper.saveText(command, 'outfit-back.txt');    
+  }
+
+  generate(): any {
     const descriptor = JSON.parse(JSON.stringify(backDescriptor));
     let res = '?replace';
 
@@ -58,6 +90,6 @@ export class TabBackComponent {
     const full = templates.back.join('');
     descriptor.parameters.directives = `${full}${res}`;
 
-    FileHelper.saveText(JSON.stringify(descriptor, undefined, 2), 'outfit-legs.json');
+    return descriptor;
   }
 }

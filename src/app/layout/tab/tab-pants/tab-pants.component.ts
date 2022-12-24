@@ -8,6 +8,9 @@ import { TemplateHelper } from '@root/helpers/template-helper';
 import { templates } from '@root/helpers/templates';
 import { DirectivesHelper } from '@root/helpers/directives-helper';
 import { FileHelper } from '@root/helpers/file-helper';
+import { ImageService } from '@root/services/image.service';
+import { ClipboardHelper } from '@root/helpers/clipboard-helper';
+import { CommandHelper } from '@root/helpers/command-helper';
 
 @Component({
   selector: 'app-tab-pants',
@@ -19,7 +22,24 @@ export class TabPantsComponent {
 
   readonly fileTemplates = pantsFileTemplates;
 
-  constructor(private readonly notifierService: NotifierService) {}
+  constructor(
+    private readonly _notifierService: NotifierService,
+    private readonly _imageService: ImageService
+  ) {}
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    const files = event.dataTransfer.files;
+    console.log(files);
+    this._imageService.fileToImage(files[0]).subscribe({
+      next: img => this.imageLoaded(img),
+      error: e => this.imageError(e)
+    });
+  }
 
   imageLoaded(imageModel: ImageModel) {
     this.imageModel = imageModel;
@@ -31,15 +51,31 @@ export class TabPantsComponent {
 
   imageError(error: any) {
     this.imageCleared();
-    this.notifierService.notify('error', error);
+    this._notifierService.notify('error', error);
   }
 
-  generateNormal() {
-    this.generate(pantsDescriptor, templates.pants);
+  generateNormalFile(copy?: boolean): void {
+    const descriptor = this.generate(pantsDescriptor, templates.pants);
+    const json = JSON.stringify(descriptor, undefined, 2);
+    copy ? ClipboardHelper.copy(json) : FileHelper.saveText(json, 'outfit-legs.json');
   }
 
-  generateHiding() {
-    this.generate(hidingPantsDescriptor, templates.hidingPants);
+  generateNormalCommand(copy?: boolean): void {
+    const descriptor = this.generate(pantsDescriptor, templates.pants);
+    const command = CommandHelper.generateCommand(descriptor);
+    copy ? ClipboardHelper.copy(command) : FileHelper.saveText(command, 'outfit-legs.json');
+  }
+
+  generateHidingFile(copy?: boolean): void {
+    const descriptor = this.generate(hidingPantsDescriptor, templates.hidingPants);
+    const json = JSON.stringify(descriptor, undefined, 2);
+    copy ? ClipboardHelper.copy(json) : FileHelper.saveText(json, 'outfit-legs.json');
+  }
+
+  generateHidingCommand(copy?: boolean): void {
+    const descriptor = this.generate(hidingPantsDescriptor, templates.hidingPants);
+    const command = CommandHelper.generateCommand(descriptor);
+    copy ? ClipboardHelper.copy(command) : FileHelper.saveText(command, 'outfit-legs.json');
   }
 
   generate(descriptor, template) {
@@ -63,6 +99,6 @@ export class TabPantsComponent {
     const full = template.join('');
     descriptor.parameters.directives = `${full}${res}`;
 
-    FileHelper.saveText(JSON.stringify(descriptor, undefined, 2), 'outfit-legs.json');
+    return descriptor;
   }
 }
